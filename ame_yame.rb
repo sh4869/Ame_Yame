@@ -47,7 +47,7 @@ loop do
 	break
   end
   end
-  sleep(60)
+  sleep(1200)
   @f_1 = 0
 end
 
