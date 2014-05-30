@@ -20,13 +20,6 @@ end
   config.access_token_secret = ACCESS_SECRET
 end
 
-def check
-  if @f_1 == 1
-	sleep(60)
-	@f_1 = 0
-  end
-end
-
 loop do
   @stream_client.user do |object|
 	if object.is_a?(Twitter::Tweet) 
@@ -49,7 +42,11 @@ loop do
 		end
 	  end
 	end
-  check
+  if @f_1 == 1
+	break
   end
+  end
+  sleep(60)
+  @f_1 = 0
 end
 
