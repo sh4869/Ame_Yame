@@ -25,6 +25,7 @@ loop do
 	if object.is_a?(Twitter::Tweet) 
 	  if object.user.screen_name != "sh4869bot"
 		if object.uris? == false && object.media? == false && object.user_mentions? == false
+          @rest_client.favorite(object.id)
 		  sentence = object.text
 		  node = mecab.parseToNode(sentence)
 		  word_array = []
