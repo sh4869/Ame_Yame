@@ -32,7 +32,7 @@ def ame_yame(status)
 	  end
 	end until node.next.feature.include?("BOS/EOS")
 	word = word_array.sample
-	if word != nil
+	if word != nil && word != "ー" && word != "!"
 	  puts word
 	  @rest_client.favorite(status.id)
 	  @rest_client.update(word + "やめー!")
@@ -43,10 +43,8 @@ end
 
 loop do
   @stream_client.user do |object|
-	if object.is_a?(Twitter::Tweet) 
-	  if object.user.screen_name != "sh4869bot"
+	if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
 		ame_yame(object)
-	  end
 	end
 	if @f_1 == 1
 	  break
