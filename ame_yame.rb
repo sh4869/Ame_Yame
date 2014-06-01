@@ -3,7 +3,7 @@ require 'twitter'
 require './keys.rb'
 require 'MeCab'
 
-mecab = MeCab::Tagger.new
+@mecab = MeCab::Tagger.new
 @f_1 = 0
 
 @rest_client = Twitter::REST::Client.new do |config|
@@ -20,33 +20,37 @@ end
   config.access_token_secret = ACCESS_SECRET
 end
 
+def ame_yame(status)
+  if status.uris? == false && status.media? == false && status.user_mentions? == false
+	sentence = status.text
+	node = @mecab.parseToNode(sentence)
+	word_array = []
+	begin
+	  node = node.next
+	  if /^名詞/ =~ node.feature.force_encoding("UTF-8")
+		word_array << node.surface.force_encoding("UTF-8")
+	  end
+	end until node.next.feature.include?("BOS/EOS")
+	word = word_array.sample
+	if word != nil
+	  puts word
+	  @rest_client.favorite(status.id)
+	  @rest_client.update(word + "やめー!")
+	  @f_1 = 1
+	end
+  end
+end
+
 loop do
   @stream_client.user do |object|
 	if object.is_a?(Twitter::Tweet) 
 	  if object.user.screen_name != "sh4869bot"
-		if object.uris? == false && object.media? == false && object.user_mentions? == false
-		  sentence = object.text
-		  node = mecab.parseToNode(sentence)
-		  word_array = []
-		  begin
-			node = node.next
-			if /^名詞/ =~ node.feature.force_encoding("UTF-8")
-			  word_array << node.surface.force_encoding("UTF-8")
-			end
-		  end until node.next.feature.include?("BOS/EOS")
-		  word = word_array.sample
-		  if word != nil
-			puts word
-			@rest_client.favorite(object.id)
-			@rest_client.update(word + "やめー!")
-			@f_1 = 1
-		  end
-		end
+		ame_yame(object)
 	  end
 	end
-  if @f_1 == 1
-	break
-  end
+	if @f_1 == 1
+	  break
+	end
   end
   sleep(1200)
   @f_1 = 0
