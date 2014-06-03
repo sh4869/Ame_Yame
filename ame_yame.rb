@@ -44,13 +44,13 @@ end
 loop do
   @stream_client.user do |object|
 	if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
-		ame_yame(object)
+	  ame_yame(object)
 	end
 	if @f_1 == 1
 	  break
 	end
   end
-  sleep(1200)
+  sleep(900)
   @f_1 = 0
 end
 
