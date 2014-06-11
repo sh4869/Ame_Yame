@@ -20,27 +20,34 @@ end
   config.access_token_secret = ACCESS_SECRET
 end
 
+@time = Time.now
+@user = ""
 def ame_yame(status)
   if status.uris? == false && status.media? == false && status.user_mentions? == false
-	sentence = status.text
-	node = @mecab.parseToNode(sentence)
-	word_array = []
-	begin
-	  node = node.next
-	  if /^名詞/ =~ node.feature.force_encoding("UTF-8")
-		word_array << node.surface.force_encoding("UTF-8")
+	if @user != status.user.screen_name
+	  sentence = status.text
+	  @user = status.user.screen_name
+	  node = @mecab.parseToNode(sentence)
+	  word_array = []
+	  begin
+		node = node.next
+		if /^名詞/ =~ node.feature.force_encoding("UTF-8")
+		  word_array << node.surface.force_encoding("UTF-8")
+		end
+	  end until node.next.feature.include?("BOS/EOS")
+	  word = word_array.sample
+	  if word != nil && word != "ー" && word != "!"
+		puts word
+		@rest_client.favorite(status.id)
+		@rest_client.update(word + "やめー!")
+		@f_1 = 1
 	  end
-	end until node.next.feature.include?("BOS/EOS")
-	word = word_array.sample
-	if word != nil && word != "ー" && word != "!"
-	  puts word
-	  @rest_client.favorite(status.id)
-	  @rest_client.update(word + "やめー!")
-	  @f_1 = 1
 	end
   end
 end
 
+puts @time
+@rest_client.update("起動したよ!(#{@time})")
 loop do
   @stream_client.user do |object|
 	if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
