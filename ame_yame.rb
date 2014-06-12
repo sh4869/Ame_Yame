@@ -24,7 +24,7 @@ end
 @user = ""
 def ame_yame(status)
   if status.uris? == false && status.media? == false && status.user_mentions? == false
-	if @user != status.user.screen_name
+	if @user != status.user.screen_name  #二回同じ人が採用されるのを防ぐ。
 	  sentence = status.text
 	  @user = status.user.screen_name
 	  node = @mecab.parseToNode(sentence)
@@ -37,7 +37,7 @@ def ame_yame(status)
 	  end until node.next.feature.include?("BOS/EOS")
 	  word = word_array.sample
 	  if word != nil && word != "ー" && word != "!"
-		puts word
+		puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
 		@rest_client.favorite(status.id)
 		@rest_client.update(word + "やめー!")
 		@f_1 = 1
