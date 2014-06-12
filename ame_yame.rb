@@ -20,7 +20,8 @@ end
   config.access_token_secret = ACCESS_SECRET
 end
 
-@time = Time.now
+@Time = Time.now
+@time = @Time.strftime("%x %H:%M")
 @user = ""
 def ame_yame(status)
   if status.uris? == false && status.media? == false && status.user_mentions? == false
@@ -47,7 +48,7 @@ def ame_yame(status)
 end
 
 puts @time
-@rest_client.update("起動したよ!(#{@time})")
+@rest_client.update("雨やめbotが起動したよ!(#{@time})")
 loop do
   @stream_client.user do |object|
 	if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
