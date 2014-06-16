@@ -38,7 +38,7 @@ def ame_yame(status)
 		end
 	  end until node.next.feature.include?("BOS/EOS")
 	  word = word_array.sample
-	  if word != nil && word != "ー" && word != "!" word != "(" 
+	  if word != nil && word != "ー" && word != "!" && word != "(" 
 		puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
 		@rest_client.favorite(status.id)
 		@rest_client.update(word + "やめー!")
