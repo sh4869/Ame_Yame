@@ -53,14 +53,14 @@ puts @time
 @rest_client.update("雨やめbotが起動したよ!(#{@time})")
 loop do
   begin
-  @stream_client.user do |object|
-	if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
-	  ame_yame(object)
+	@stream_client.user do |object|
+	  if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
+		ame_yame(object)
+	  end
+	  if @f_1 == 1
+		break
+	  end
 	end
-	if @f_1 == 1
-	  break
-	end
-  end
   rescue Twitter::Error
 	puts "Error発生しました。"
 	@rest_client.update("エラーが発生しました。")
@@ -68,6 +68,6 @@ loop do
   end
   sleep(900)
   @f_1 = 0
-  end 
+end 
 end
 
