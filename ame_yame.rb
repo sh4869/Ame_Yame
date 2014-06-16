@@ -69,5 +69,4 @@ loop do
   sleep(900)
   @f_1 = 0
 end 
-end
 
