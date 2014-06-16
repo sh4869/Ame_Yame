@@ -63,7 +63,7 @@ loop do
 	end
   rescue Twitter::Error
 	puts "Error発生しました。"
-	@rest_client.update("エラーが発生しました。")
+	@rest_client.update("エラーが発生しちゃった!ごめんね! ")
 	exit
   end
   sleep(900)
