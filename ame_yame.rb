@@ -23,6 +23,7 @@ end
 @Time = Time.now
 @time = @Time.strftime("%x %H:%M")
 @user = ""
+@count = 0
 
 def ame_yame(status)
   if status.uris? == false && status.media? == false && status.user_mentions? == false
@@ -42,7 +43,7 @@ def ame_yame(status)
 		puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
 		@rest_client.favorite(status.id)
 		@rest_client.update(word + "やめー!")
-		@f_1 = 1
+		@count = 1
 	  end
 	end
   end
@@ -51,22 +52,18 @@ end
 puts @time
 
 @rest_client.update("雨やめbotが起動したよ!(#{@time})")
-loop do
-  begin
-	@stream_client.user do |object|
-	  if object.is_a?(Twitter::Tweet)  && object.user.screen_name != "sh4869bot"
-		ame_yame(object)
-	  end
-	  if @f_1 == 1
-		break
-	  end
-	end
-  rescue Twitter::Error
-	puts "Error発生しました。"
-	@rest_client.update("エラーが発生しちゃった!ごめんね! ")
-	exit
-  end
-  sleep(900)
-  @f_1 = 0
-end 
 
+#-----------------------------------------------------# 
+
+
+@stream_client.user do |object|
+  if object.is_a?(Twitter::Tweet)
+	if @count == 0
+	  ame_yame(object)
+	elsif @count == 50
+	  @count = 0
+	else
+	  @count += 1
+	end
+  end
+end
