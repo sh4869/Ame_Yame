@@ -60,7 +60,7 @@ puts @time
   if object.is_a?(Twitter::Tweet)
 	if @count == 0
 	  ame_yame(object)
-	elsif @count == 50
+	elsif @count == 30
 	  @count = 0
 	else
 	  @count += 1
