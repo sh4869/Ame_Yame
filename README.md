@@ -8,8 +8,9 @@ Twitter:[@ame_yame](https://twitter.com/ame_yame)
 
 ###ToDo
 
-* Javaで書き直す
-* 言語選定の強化
+* コマンドを追加する
+* 言語解析に関してあとから見れるようにデータを作成する
+* あまり単語として相応しくない言葉を判定出来るようにする
 
 ##LICENSE
 
