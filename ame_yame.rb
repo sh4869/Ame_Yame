@@ -27,33 +27,35 @@ end
 
 #言語解析部分
 def ame_yame(status)
-  sentence = status.text
-  @user = status.user.screen_name
-  word_array = []
+  if status.uris? == false && status.media? == false && status.user_mentions? == false
+	sentence = status.text
+	@user = status.user.screen_name
+	word_array = []
 
-  #YahooJaParse
-  response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-								 {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
-  xml = REXML::Document.new(response.body)
-  xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
-	if element.elements['pos'].text == "名詞"
-	  word_array << element.elements['surface'].text
-	end	
-  end
-  word = word_array.sample
+	#YahooJaParse
+	response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
+								   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
+	xml = REXML::Document.new(response.body)
+	xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
+	  if element.elements['pos'].text == "名詞"
+		word_array << element.elements['surface'].text
+	  end	
+	end
+	word = word_array.sample
 
-  if word != nil 
-	puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
-	@rest_client.favorite(status.id)
-	@rest_client.update(word + "やめー!")
-	@count = 1
+	if word != nil 
+	  puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
+	  @rest_client.favorite(status.id)
+	  @rest_client.update(word + "やめー!")
+	  @count = 1
+	end
   end
 end
 
 def talk(status)
   text = status.text 
   response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-								   {'appid'=> @id,'sentence' => text,'results' => 'ma'})
+								 {'appid'=> @id,'sentence' => text,'results' => 'ma'})
   xml = REXML::Document.new(response.body)
   greetings = []
   noun = []
@@ -66,7 +68,7 @@ def talk(status)
 	end
   end
   if greetings.empty? == false
-    greet = greetings.sample
+	greet = greetings.sample
 	@rest_client.update("@#{status.user.screen_name} #{greet}!",:in_reply_to_status_id => status.id)
   end	
 end
