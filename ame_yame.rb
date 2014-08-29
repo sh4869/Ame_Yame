@@ -54,21 +54,16 @@ def ame_yame(status)
   end
 end
 
+
 puts @time
-
 @rest_client.update("雨やめbotが起動したよ!(#{@time})")
-
-#-----------------------------------------------------# 
-
 
 @stream_client.user do |object|
   if object.is_a?(Twitter::Tweet)
-	if @count == 0
+	if @count == 30
 	  ame_yame(object)
-	elsif @count == 30
 	  @count = 0
-	else
-	  @count += 1
 	end
+	@count += 1
   end
 end
