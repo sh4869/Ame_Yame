@@ -27,39 +27,58 @@ end
 
 #言語解析部分
 def ame_yame(status)
-  if status.uris? == false && status.media? == false && status.user_mentions? == false
-	if @user != status.user.screen_name  #二回同じ人が採用されるのを防ぐ。
-	  sentence = status.text
-	  @user = status.user.screen_name
-	  word_array = []
-	  
-	  #YahooJaParse
-	  response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-									 {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
-	  xml = REXML::Document.new(response.body)
-	  xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
-		if element.elements['pos'].text == "名詞"
-		  word_array << element.elements['surface'].text
-		end	
-	  end
-      word = word_array.sample
+  sentence = status.text
+  @user = status.user.screen_name
+  word_array = []
 
-	  if word != nil && word != "ー" && word != "!" && word != "(" 
-		puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
-		@rest_client.favorite(status.id)
-		@rest_client.update(word + "やめー!")
-		@count = 1
-	  end
-	end
+  #YahooJaParse
+  response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
+								 {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
+  xml = REXML::Document.new(response.body)
+  xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
+	if element.elements['pos'].text == "名詞"
+	  word_array << element.elements['surface'].text
+	end	
+  end
+  word = word_array.sample
+
+  if word != nil 
+	puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
+	@rest_client.favorite(status.id)
+	@rest_client.update(word + "やめー!")
+	@count = 1
   end
 end
 
+def talk(status)
+  text = status.text 
+  response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
+								   {'appid'=> @id,'sentence' => text,'results' => 'ma'})
+  xml = REXML::Document.new(response.body)
+  greetings = []
+  noun = []
+  xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
+	case element.elements['pos'].text 
+	when "感動詞"
+	  greetings << element.elements['surface'].text
+	when "名詞"
+	  noun << element.elements['surface'].text
+	end
+  end
+  if greetings.empty? == false
+    greet = greetings.sample
+	@rest_client.update("@#{status.user.screen_name} #{greet}!",:in_reply_to_status_id => status.id)
+  end	
+end
 
 puts @time
 @rest_client.update("雨やめbotが起動したよ!(#{@time})")
 
 @stream_client.user do |object|
   if object.is_a?(Twitter::Tweet)
+	if object.in_reply_to_screen_name == "ame_yame"
+	  talk(object)
+	end
 	if @count == 30
 	  ame_yame(object)
 	  @count = 0
