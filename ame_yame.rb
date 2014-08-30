@@ -44,11 +44,17 @@ def ame_yame(status)
 	word = word_array.sample
 
 	if word != nil 
-	  puts "#{word} from #{status.user.screen_name} at #{status.created_at}"
+	  data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
+	  jsondata = data.to_json
 	  @rest_client.favorite(status.id)
 	  @rest_client.update(word + "やめー!")
 	  @count = 1
 	end
+	
+	#File output
+	file = File.open("output.json","a")
+	file.write(jsondata)
+	file.close
   end
 end
 
