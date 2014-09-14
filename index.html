@@ -1,91 +1,91 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Ame yame by sh4869</title>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<title>Ame yame by sh4869</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
+	<div id="container">
+	  <div class="inner">
 
-        <header>
-          <h1>Ame yame</h1>
-          <h2></h2>
-        </header>
+		<header>
+		  <h1>Ame yame</h1>
+		  <h2></h2>
+		</header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/sh4869/Ame_Yame/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/sh4869/Ame_Yame/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/sh4869/Ame_Yame" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+		<section id="downloads" class="clearfix">
+		  <a href="https://github.com/sh4869/Ame_Yame/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+		  <a href="https://github.com/sh4869/Ame_Yame/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+		  <a href="https://github.com/sh4869/Ame_Yame" id="view-on-github" class="button"><span>View on GitHub</span></a>
+		</section>
 
-        <hr>
+		<hr>
 
-        <section id="main_content">
-          <h1>
-<a name="ame_yame" class="anchor" href="#ame_yame"><span class="octicon octicon-link"></span></a>Ame_Yame</h1>
+		<section id="main_content">
+		  <h1>
+			<a name="ame_yame" class="anchor" href="#ame_yame"><span class="octicon octicon-link"></span></a>Ame_Yame</h1>
 
-<p><a href="https://twitter.com/ame_yame">雨やめbot</a></p>
+		  <p><a href="https://twitter.com/ame_yame">雨やめbot</a></p>
 
-<h2>
-<a name="%E9%9B%A8%E3%82%84%E3%82%81bot%E3%81%A8%E3%81%AF" class="anchor" href="#%E9%9B%A8%E3%82%84%E3%82%81bot%E3%81%A8%E3%81%AF"><span class="octicon octicon-link"></span></a>雨やめbotとは</h2>
+		  <h2>
+			<a name="%E9%9B%A8%E3%82%84%E3%82%81bot%E3%81%A8%E3%81%AF" class="anchor" href="#%E9%9B%A8%E3%82%84%E3%82%81bot%E3%81%A8%E3%81%AF"><span class="octicon octicon-link"></span></a>雨やめbotとは</h2>
 
-<p>TVアニメ「ラブライブ」二期・第一話の中で、登場人物である穂乃果のセリフに「雨やめー!」というものがあります。作品の中で、穂乃果はこれを叫ぶだけで雨を止めさせるというまるでチュクチに出てくる「物語り」のような力を発揮します。そこで、「雨やめー!」の「雨」の部分を適当な言葉に変えてみたら面白いものが出来るんじゃないか、と作者が若干疲れて思考能力の落ちた頭で考え、作り出されたものが、雨やめbotです。botが偶に頭のおかしい発言をするのはつまりそういうこと。</p>
+		  <p>TVアニメ「ラブライブ」二期・第一話の中で、登場人物である穂乃果のセリフに「雨やめー!」というものがあります。作品の中で、穂乃果はこれを叫ぶだけで雨を止めさせるというまるでチュクチに出てくる「物語り」のような力を発揮します。そこで、「雨やめー!」の「雨」の部分を適当な言葉に変えてみたら面白いものが出来るんじゃないか、と作者が若干疲れて思考能力の落ちた頭で考え、作り出されたものが、雨やめbotです。botが偶に頭のおかしい発言をするのはつまりそういうこと。</p>
 
-<p>具体的には、雨やめbotはランダムに選んだツイートの文章から日本語形態素解析を通して名詞を抽出して行われます。現在日本語形態解析のツールとして利用しているのは、<a href="http://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html">Yahoo日本語形態素解析API</a>です。また、ツイートの抽出は、30ツイート事に流れて来たツイートを選んでいます。この方針は変える可能性が高いです。</p>
+		  <p>具体的には、雨やめbotはランダムに選んだツイートの文章から日本語形態素解析を通して名詞を抽出して行われます。現在日本語形態解析のツールとして利用しているのは、<a href="http://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html">Yahoo日本語形態素解析API</a>です。また、ツイートの抽出は、30ツイート事に流れて来たツイートを選んでいます。この方針は変える可能性が高いです。</p>
 
-<h2>
-<a name="%E8%BF%94%E4%BF%A1%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6" class="anchor" href="#%E8%BF%94%E4%BF%A1%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6"><span class="octicon octicon-link"></span></a>返信に関して</h2>
+		  <h2>
+			<a name="%E8%BF%94%E4%BF%A1%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6" class="anchor" href="#%E8%BF%94%E4%BF%A1%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6"><span class="octicon octicon-link"></span></a>返信に関して</h2>
 
-<p>現在、言語解析をして「感動詞」として分類されたものがある場合にのみ、返信させるようにしています(ex:こんにちは,おはよう　など)。
-そのため、必ずしも返信出来るわけではないことをご確認いただけると幸いです。</p>
+		  <p>現在、言語解析をして「感動詞」として分類されたものがある場合にのみ、返信させるようにしています(ex:こんにちは,おはよう　など)。
+			そのため、必ずしも返信出来るわけではないことをご確認いただけると幸いです。</p>
 
-<h2>
-<a name="%E6%B3%A8%E6%84%8F" class="anchor" href="#%E6%B3%A8%E6%84%8F"><span class="octicon octicon-link"></span></a>注意</h2>
+		  <h2>
+			<a name="%E6%B3%A8%E6%84%8F" class="anchor" href="#%E6%B3%A8%E6%84%8F"><span class="octicon octicon-link"></span></a>注意</h2>
 
-<p>現在ラブライブ!の二次創作のガイドラインが出ていないため、こちらのアカウントは予告なく削除される可能性があります。ご了承ください。
-</p>
+		  <p>現在ラブライブ!の二次創作のガイドラインが出ていないため、こちらのアカウントは予告なく削除される可能性があります。ご了承ください。
+		  </p>
 
-<p>また、このアカウントはTwitterの利用規約に違反しているユーザーを、作者の判断でブロック・リムーブなどをさせていただく場合がございます。ご確認ください。
-また、Twitterの利用規約に違反していなくても、雨やめbotのユーザーや作者にとって不利益となるユーザーがいた場合、こちらからなんらかの方法で対処させていただきます。</p>
+		  <p>また、このアカウントはTwitterの利用規約に違反しているユーザーを、作者の判断でブロック・リムーブなどをさせていただく場合がございます。ご確認ください。
+			また、Twitterの利用規約に違反していなくても、雨やめbotのユーザーや作者にとって不利益となるユーザーがいた場合、こちらからなんらかの方法で対処させていただきます。</p>
 
-<h3>
-<a name="%E3%81%9D%E3%81%AE%E4%BB%96" class="anchor" href="#%E3%81%9D%E3%81%AE%E4%BB%96"><span class="octicon octicon-link"></span></a>その他</h3>
+		  <h3>
+			<a name="%E3%81%9D%E3%81%AE%E4%BB%96" class="anchor" href="#%E3%81%9D%E3%81%AE%E4%BB%96"><span class="octicon octicon-link"></span></a>その他</h3>
 
-<p>ツイートはランダムで選んでます。下ネタツイートとかしてても許して☆彡</p>
+		  <p>ツイートはランダムで選んでます。下ネタツイートとかしてても許して☆彡</p>
 
-<p>あと、こんなくだらないbotを作っている人を支援したいという神のようなお方がいらっしゃいましたら、<a href="http://kampa.me/t/enr">こちらのサイト</a>から送っていただけるととてもうれしいです。</p>
-        
-          <a class="twitter-timeline" href="https://twitter.com/ame_yame" data-widget-id="511104564615843840">@ame_yame からのツイート</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        </section>
+		  <p>あと、こんなくだらないbotを作っている人を支援したいという神のようなお方がいらっしゃいましたら、<a href="http://kampa.me/t/enr">こちらのサイト</a>から送っていただけるととてもうれしいです。</p>
 
-        <footer>
-          Ame yame is maintained by <a href="https://github.com/sh4869">sh4869</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+		  <a class="twitter-timeline" href="https://twitter.com/ame_yame" data-widget-id="511104564615843840">@ame_yame からのツイート</a>
+		  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</section>
 
-                  <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-46319605-8");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+		<footer>
+		  Ame yame is maintained by <a href="https://github.com/sh4869">sh4869</a><br>
+		  This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+		</footer>
 
-      </div>
-    </div>
+		<script type="text/javascript">
+		  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		  try {
+			var pageTracker = _gat._getTracker("UA-46319605-8");
+			pageTracker._trackPageview();
+		  } catch(err) {}
+		</script>
+
+	  </div>
+	</div>
   </body>
 </html>
