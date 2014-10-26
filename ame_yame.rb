@@ -44,6 +44,7 @@ def ame_yame(status)
 	word = word_array.sample
 
 	if word != nil 
+	  puts "#{word} | #{status.created_at} "
 	  data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
 	  jsondata = data.to_json
 	  @rest_client.favorite(status.id)
