@@ -74,13 +74,18 @@ def talk(status)
 	  noun << element.elements['surface'].text
 	end
   end
+  noun.delete("ame")
+  noun.delete("yame")
   if greetings.empty? == false
 	greet = greetings.sample
 	@rest_client.update("@#{status.user.screen_name} #{greet}!",:in_reply_to_status_id => status.id)
+  else noun.empty? == false
+	nou = noun.sample
+	@rest_client.update("@#{status.user.screen_name} #{nou}って何?",:in_reply_to_status_id => status.id)
   end	
 end
 
-puts @time
+puts "Up: #{@time}"
 @rest_client.update("雨やめbotが起動したよ!(#{@time})")
 
 @stream_client.user do |object|
