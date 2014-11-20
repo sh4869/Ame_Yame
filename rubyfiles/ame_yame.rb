@@ -25,6 +25,12 @@ end
 @count = 0
 @id = YAHOOAPPID
 
+def yahoo_api(sentence)
+	response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
+								   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
+	xml = REXML::Document.new(response.body)
+	return xml
+end
 #言語解析部分
 def ame_yame(status)
   if status.uris? == false && status.media? == false && status.user_mentions? == false
@@ -33,9 +39,7 @@ def ame_yame(status)
 	word_array = []
 
 	#YahooJaParse
-	response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-								   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
-	xml = REXML::Document.new(response.body)
+	xml = yahoo_api(sentence)
 	xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
 	  if element.elements['pos'].text == "名詞"
 		word_array << element.elements['surface'].text
@@ -61,9 +65,7 @@ end
 
 def talk(status)
   text = status.text 
-  response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-								 {'appid'=> @id,'sentence' => text,'results' => 'ma'})
-  xml = REXML::Document.new(response.body)
+  xml = yahoo_api(text)
   greetings = []
   noun = []
   xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
