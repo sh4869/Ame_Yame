@@ -11,9 +11,10 @@ Twitter:[@ame_yame](https://twitter.com/ame_yame)
 * コマンドを追加する
 * 言語解析に関してあとから見れるようにデータを作成する
 * あまり単語として相応しくない言葉を判定出来るようにする
+* Dartに移植
 
 ##LICENSE
 
 The MIT License
 
-(c) 2014 sh4869 
+(c) 2014 sh4869
