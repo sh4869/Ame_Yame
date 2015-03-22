@@ -29,7 +29,7 @@ class AmeYame
 	end
 	def yahoo_api(sentence)
 		response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
-																	 {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
+									   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
 		xml = REXML::Document.new(response.body)
 		return xml
 	end
@@ -44,44 +44,28 @@ class AmeYame
 		return word_array.sample
 	end
 	#言語解析部分
-	
+
 	def ame_yame(status)
-		if status.uris? == false && status.media? == false && status.user_mentions? == false
-			sentence = status.text
-			@user = status.user.screen_name
-			word_array = []
+		sentence = status.text
+		@user = status.user.screen_name
+		word_array = []
 
-			xml = yahoo_api(sentence)
-			word = xml_parse(xml,"名詞")
+		xml = yahoo_api(sentence)
+		word = xml_parse(xml,"名詞")
 
-			if word != nil 
-				puts "#{word} | #{status.created_at} "
-				data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
-				jsondata = data.to_json
-				@rest_client.favorite(status.id)
-				@rest_client.update(word + "やめー!")
-				@count = 1
-			end
-
-			#File output
-			file = File.open("output.json","a")
-			file.write(jsondata)
-			file.close
+		if word != nil 
+			puts "#{word} | #{status.created_at} "
+			data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
+			jsondata = data.to_json
+			@rest_client.favorite(status.id)
+			@rest_client.update(word + "やめー!")
+			@count = 1
 		end
-	end
 
-	def talk(status)
-		text = status.text 
-		xml = yahoo_api(text)
-		greet = xml_parse(xml,"感動詞")
-		noun = xml_parse(xml,"名詞")
-		if greetings.empty? == false
-			greet = greetings.sample
-			@rest_client.update("@#{status.user.screen_name} #{greet}!",:in_reply_to_status_id => status.id)
-		else noun.empty? == false
-			nou = noun.sample
-			@rest_client.update("@#{status.user.screen_name} #{nou}って何?",:in_reply_to_status_id => status.id)
-		end	
+		#File output
+		file = File.open("output.json","a")
+		file.write(jsondata)
+		file.close
 	end
 
 	def start
@@ -90,14 +74,12 @@ class AmeYame
 
 		@stream_client.user do |object|
 			if object.is_a?(Twitter::Tweet)
-				if object.in_reply_to_screen_name == "ame_yame"
-					talk(object)
+				if object.uris? == false && object.media? == false && object.user_mentions? == false
+					if @count == 30
+						ame_yame(object)
+					end
+					@count += 1
 				end
-				if @count == 30
-					ame_yame(object)
-					@count = 0
-				end
-				@count += 1
 			end
 		end
 	end
