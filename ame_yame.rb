@@ -70,29 +70,12 @@ class AmeYame
 		end
 	end
 
-	def talk(status)
-		text = status.text 
-		xml = yahoo_api(text)
-		greet = xml_parse(xml,"感動詞")
-		noun = xml_parse(xml,"名詞")
-		if greetings.empty? == false
-			greet = greetings.sample
-			@rest_client.update("@#{status.user.screen_name} #{greet}!",:in_reply_to_status_id => status.id)
-		else noun.empty? == false
-			nou = noun.sample
-			@rest_client.update("@#{status.user.screen_name} #{nou}って何?",:in_reply_to_status_id => status.id)
-		end	
-	end
-
 	def start
 		puts "Up: #{@time}"
 		@rest_client.update("雨やめbotが起動したよ!(#{@time})")
 
 		@stream_client.user do |object|
 			if object.is_a?(Twitter::Tweet)
-				if object.in_reply_to_screen_name == "ame_yame"
-					talk(object)
-				end
 				if @count == 30
 					ame_yame(object)
 					@count = 0
