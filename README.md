@@ -1,20 +1,8 @@
 Ame_Yame
 ========
 
-##これはなに
-ラブライブ!でのあの名言をパロディにしてbotにしようとかいう頭のおかしいbotです。現在mecabを使用しています。
+Twitter Bot that parody of Honoka, a anime Lovelive! Project Character
 
 Twitter:[@ame_yame](https://twitter.com/ame_yame)
 
-###ToDo
-
-* コマンドを追加する
-* 言語解析に関してあとから見れるようにデータを作成する
-* あまり単語として相応しくない言葉を判定出来るようにする
-* Dartに移植
-
-##LICENSE
-
-The MIT License
-
-(c) 2014 sh4869
+&copy; 2014-2015 sh4869
