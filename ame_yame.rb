@@ -27,6 +27,7 @@ class AmeYame
 		@count = 30
 		@id = YAHOOAPPID
 	end
+
 	def yahoo_api(sentence)
 		response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
 									   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
@@ -43,7 +44,6 @@ class AmeYame
 		end
 		return word_array.sample
 	end
-	#言語解析部分
 
 	def ame_yame(status)
 		sentence = status.text
@@ -68,8 +68,17 @@ class AmeYame
 		file.close
 	end
 
+	def ame_yame_with_rest
+		@rest_client.home_timeline.each do |tweet|
+			if tweet.uris? == false && tweet.media? == false && tweet.user_mentions? == false
+				ame_yame(tweet)
+				return
+			end
+		end
+	end
+
+
 	def start
-		puts "Up: #{@time}"
 		@rest_client.update("雨やめbotが起動したよ!(#{@time})")
 
 		@stream_client.user do |object|
@@ -85,5 +94,3 @@ class AmeYame
 	end
 end
 
-ame_yame = AmeYame.new
-ame_yame.start
