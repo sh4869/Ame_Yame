@@ -77,8 +77,7 @@ class AmeYame
 		end
 	end
 
-
-	def start
+	def ame_yame_with_stream
 		@rest_client.update("雨やめbotが起動したよ!(#{@time})")
 
 		@stream_client.user do |object|
