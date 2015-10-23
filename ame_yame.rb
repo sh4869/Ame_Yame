@@ -59,7 +59,6 @@ class AmeYame
 			puts jsondata
 			@rest_client.favorite(status.id)
 			@rest_client.update(word + "やめー!")
-			@count = 1
 		end
 	end
 
@@ -80,6 +79,7 @@ class AmeYame
 				if object.uris? == false && object.media? == false && object.user_mentions? == false
 					if @count == 30
 						ame_yame(object)
+						@count = 1
 					end
 					@count += 1
 				end
