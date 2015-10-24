@@ -8,6 +8,11 @@ Forever.run do
 	every 15.minutes do
 		ame_yame.ame_yame_with_rest
 	end
+	
+	every 60.minutes do
+		ame_yame.ff_check
+	end
+
 	on_error do |e|
 		puts "-" * 30
 		puts e
