@@ -92,5 +92,32 @@ class AmeYame
 		end
 	end
 
+	def ff_check
+		followers =  @rest_client.follower_ids.to_h[:ids]
+		friends =  @rest_client.friend_ids.to_h[:ids]
+		# follow followers who @ame_yame don't follow
+		nofollow_follower = followers - friends
+		nofollow_follower.each do |user_id|
+			begin 
+				@rest_client.follow(user_id)
+				puts "follow " + user_id.to_s 
+				sleep(3)
+			rescue => ex
+				puts ex
+			end
+		end
+		# unfollow following user who don't follow @ame_yame
+		nofollowes_friend = friends - followers
+		nofollowes_friend.each do |user_id|
+			begin 
+				@rest_client.unfollow(user_id)
+				puts "unfollow " + user_id.to_s
+				sleep(3)
+			rescue => ex
+				puts ex
+			end
+		end
+	end
+
 end
 
