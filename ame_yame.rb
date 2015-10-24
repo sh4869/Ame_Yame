@@ -62,9 +62,16 @@ class AmeYame
 		end
 	end
 
+	def check_tweet(tweet)
+		if tweet.uris? == false && tweet.media? == false && tweet.user_mentions? == false
+			return true
+		end
+		return false
+	end
+
 	def ame_yame_with_rest
 		@rest_client.home_timeline.each do |tweet|
-			if tweet.uris? == false && tweet.media? == false && tweet.user_mentions? == false
+			if check_tweet(tweet)
 				ame_yame(tweet)
 				return
 			end
@@ -72,11 +79,9 @@ class AmeYame
 	end
 
 	def ame_yame_with_stream
-		@rest_client.update("雨やめbotが起動したよ!(#{@time})")
-
 		@stream_client.user do |object|
-			if object.is_a?(Twitter::Tweet)
-				if object.uris? == false && object.media? == false && object.user_mentions? == false
+			if object.is_a?(Twitter::Tweet) 
+				if check_tweet(tweet)
 					if @count == 30
 						ame_yame(object)
 						@count = 1
@@ -86,5 +91,6 @@ class AmeYame
 			end
 		end
 	end
+
 end
 
