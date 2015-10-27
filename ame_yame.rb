@@ -13,18 +13,12 @@ class AmeYame
 			config.access_token        = ACCESS_TOKEN
 			config.access_token_secret = ACCESS_SECRET
 		end
-
 		@stream_client = Twitter::Streaming::Client.new do |config|
 			config.consumer_key       = CONSUMER_KEY
 			config.consumer_secret    = CONSUMER_SECRET
 			config.access_token        = ACCESS_TOKEN
 			config.access_token_secret = ACCESS_SECRET
 		end
-
-		@Time = Time.now
-		@time = @Time.strftime("%x %H:%M")
-		@user = ""
-		@count = 30
 		@id = YAHOOAPPID
 	end
 
@@ -47,9 +41,6 @@ class AmeYame
 
 	def ame_yame(status)
 		sentence = status.text
-		@user = status.user.screen_name
-		word_array = []
-
 		xml = yahoo_api(sentence)
 		word = xml_parse(xml,"名詞")
 
@@ -79,14 +70,15 @@ class AmeYame
 	end
 
 	def ame_yame_with_stream
+		count = 0
 		@stream_client.user do |object|
 			if object.is_a?(Twitter::Tweet) 
 				if check_tweet(tweet)
-					if @count == 30
+					if count == 30
 						ame_yame(object)
-						@count = 1
+						count = 1
 					end
-					@count += 1
+					count += 1
 				end
 			end
 		end
