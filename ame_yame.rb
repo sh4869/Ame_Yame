@@ -6,6 +6,7 @@ require 'uri'
 require 'rexml/document'
 
 class AmeYame
+	attr_accessor :consumer_key, :consumer_secret, :access_token, :access_token_secret, :yahoo_app_id
 	def initialize
 		@rest_client = Twitter::REST::Client.new do |config|
 			config.consumer_key        = CONSUMER_KEY
@@ -22,14 +23,14 @@ class AmeYame
 		@id = YAHOOAPPID
 	end
 
-	def yahoo_api(sentence)
+	def parse_sentence(sentence)
 		response = Net::HTTP.post_form(URI.parse('http://jlp.yahooapis.jp/MAService/V1/parse'),
 									   {'appid'=> @id,'sentence' => sentence,'results' => 'ma'})
 		xml = REXML::Document.new(response.body)
 		return xml
 	end
 
-	def xml_parse(xml,part_speech)
+	def get_word_from_xml(xml,part_speech)
 		word_array = []
 		xml.elements.each('ResultSet/ma_result/word_list/word') do |element|
 			if element.elements['pos'].text == part_speech
@@ -41,8 +42,8 @@ class AmeYame
 
 	def ame_yame(status)
 		sentence = status.text
-		xml = yahoo_api(sentence)
-		word = xml_parse(xml,"名詞")
+		xml = parse_sentence(sentence)
+		word = get_word_from_xml(xml,"名詞")
 
 		if word != nil 
 			data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
