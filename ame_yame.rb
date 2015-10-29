@@ -1,6 +1,5 @@
 # Coding: UTF-8
 require 'twitter'
-require './keys.rb'
 require 'net/http'
 require 'uri'
 require 'rexml/document'

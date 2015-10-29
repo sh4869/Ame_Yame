@@ -1,8 +1,15 @@
 require 'rubygems' unless defined?(Gem)
 require 'forever'
 require './ame_yame.rb'
+require './keys.rb'
 
-ame_yame = AmeYame.new
+ame_yame = AmeYame.new do |config|
+	config.twi_consumer_key = CONSUMER_KEY
+	config.twi_consumer_secret = CONSUMER_SECRET
+	config.twi_access_token = ACCESS_TOKEN
+	config.twi_access_token_secret = ACCESS_SECRET
+	config.yahoo_app_id = YAHOOAPPID
+end
 
 Forever.run do
 	every 15.minutes do
