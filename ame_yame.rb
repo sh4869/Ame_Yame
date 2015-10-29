@@ -6,21 +6,22 @@ require 'uri'
 require 'rexml/document'
 
 class AmeYame
-	attr_accessor :consumer_key, :consumer_secret, :access_token, :access_token_secret, :yahoo_app_id
-	def initialize
+	attr_accessor :twi_consumer_key, :twi_consumer_secret, :twi_access_token, :twi_access_token_secret, :yahoo_app_id
+	def initialize(options = {})
+		yield(self) if block_given?
 		@rest_client = Twitter::REST::Client.new do |config|
-			config.consumer_key        = CONSUMER_KEY
-			config.consumer_secret     = CONSUMER_SECRET
-			config.access_token        = ACCESS_TOKEN
-			config.access_token_secret = ACCESS_SECRET
+			config.consumer_key        = twi_consumer_key
+			config.consumer_secret     = twi_consumer_secret
+			config.access_token        = twi_access_token
+			config.access_token_secret = twi_access_token_secret
 		end
 		@stream_client = Twitter::Streaming::Client.new do |config|
-			config.consumer_key       = CONSUMER_KEY
-			config.consumer_secret    = CONSUMER_SECRET
-			config.access_token        = ACCESS_TOKEN
-			config.access_token_secret = ACCESS_SECRET
+			config.consumer_key       = twi_consumer_key
+			config.consumer_secret    = twi_consumer_secret
+			config.access_token        = twi_access_token
+			config.access_token_secret = twi_access_token_secret
 		end
-		@id = YAHOOAPPID
+		@id = yahoo_app_id
 	end
 
 	def parse_sentence(sentence)
