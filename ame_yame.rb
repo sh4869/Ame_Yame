@@ -49,8 +49,8 @@ class AmeYame
 			data = {:word => word,:user_screen_name => status.user.screen_name,:time => status.created_at}
 			jsondata = data.to_json
 			puts jsondata
-			@rest_client.favorite(status.id)
 			@rest_client.update(word + "やめー!")
+			@rest_client.favorite(status.id)
 		end
 	end
 
