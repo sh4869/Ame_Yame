@@ -12,7 +12,7 @@ ame_yame = AmeYame.new do |config|
 end
 
 Forever.run do
-	every 15.minutes do
+	every 20.minutes do
 		ame_yame.ame_yame_with_rest
 	end
 	
