@@ -96,7 +96,6 @@ class AmeYame
 				puts "follow " + user_id.to_s 
 				sleep(3)
 			rescue => ex
-				puts ex
 			end
 		end
 		# unfollow following user who don't follow @ame_yame
@@ -107,7 +106,6 @@ class AmeYame
 				puts "unfollow " + user_id.to_s
 				sleep(3)
 			rescue => ex
-				puts ex
 			end
 		end
 	end
