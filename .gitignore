@@ -1,40 +1,15 @@
-# Created by https://www.gitignore.io
 
-### Ruby ###
-*.gem
-*.rbc
-/.config
-/coverage/
-/InstalledFiles
-/pkg/
-/spec/reports/
-/test/tmp/
-/test/version_tmp/
-/tmp/
+# Created by https://www.gitignore.io/api/crystal
 
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
-
-## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
+### Crystal ###
+/.deps/
+/libs/
+/.crystal/
 /doc/
-/rdoc/
 
-## Environment normalisation:
-/.bundle/
-/lib/bundler/man/
 
-# for a library or gem, you might want to ignore these files since the code is
-# intended to run in multiple environments; otherwise, check them in:
-Gemfile.lock
-# .ruby-version
-# .ruby-gemset
+# Libraries don't need dependency lock
+# Dependencies will be locked in application that uses them
+# Uncomment the line below if you are creating a library.
+#/.deps.lock
 
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-
-output.json
-keys.rb
