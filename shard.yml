@@ -5,3 +5,9 @@ authors:
   - sh4869 <nobuk4869@gmail.com>
 
 license: MIT
+
+dependencies:
+    twitter-crystal:
+        github: sferik/twitter-crystal
+        branch: master
+
